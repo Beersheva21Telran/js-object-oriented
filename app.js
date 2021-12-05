@@ -52,4 +52,29 @@ const employees = [
 ]
 //employees.forEach(e => console.log(e.toString()));
 employees.forEach(e => console.log(Person.prototype.toString.call(e)));
+class Deferred {
+    constructor() {
+        this.thenArr = [];
+    }
+    then(fun) {
+        this.thenArr[this.thenArr.length] = fun;
+    }
+    resolve(str) {
+        this.thenArr.forEach(e => {
+            str = e(str);
+        })
+    }
+}
 
+
+
+
+
+
+const dd = new Deferred()
+dd.then(function (res) { console.log('1 ', res); return 'a'; });
+
+dd.then(function (res) { console.log('2 ', res); return 'b'; });
+
+dd.then(function (res) { console.log('3 ', res); return 'c'; });
+dd.resolve('hello');
